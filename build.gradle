@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'project.io'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // SpringBoot
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter')
+
+    // JPA
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    // Redis
+    implementation('org.springframework.boot:spring-boot-starter-data-redis')
+
+    // DB
+    implementation('com.h2database:h2')
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor('org.projectlombok:lombok')
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    testAnnotationProcessor('org.projectlombok:lombok')
+    testCompileOnly("org.projectlombok:lombok")
+
+    // Test
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
