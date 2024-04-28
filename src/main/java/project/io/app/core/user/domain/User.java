@@ -1,12 +1,8 @@
 package project.io.app.core.user.domain;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.time.*;
 
-@Getter
-@AllArgsConstructor
 @Entity(name = "users")
 public class User {
 
@@ -14,23 +10,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Embedded
+    private Name name;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @Embedded
+    private PhoneNumber phoneNumber;
 
-    @Column(name = "email")
-    private String email;
+    @Embedded
+    private Email email;
 
-    @Column(name = "nickname")
-    private String nickname;
+    @Embedded
+    private Nickname nickname;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Embedded
+    private UserId userId;
 
-    @Column(name = "password")
-    private String password;
+    @Embedded
+    private Password password;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -44,11 +40,59 @@ public class User {
     protected User() {
     }
 
+    public User(
+        Long id,
+        String name,
+        String phoneNumber,
+        String email,
+        String nickname,
+        String userId,
+        String password,
+        LocalDateTime createdAt,
+        LocalDateTime lastModifiedAt,
+        Boolean deleted
+    ) {
+        this.id = id;
+        this.name = new Name(name);
+        this.phoneNumber = new PhoneNumber(phoneNumber);
+        this.email = new Email(email);
+        this.nickname = new Nickname(nickname);
+        this.userId = new UserId(userId);
+        this.password = new Password(password);
+        this.createdAt = createdAt;
+        this.lastModifiedAt = lastModifiedAt;
+        this.deleted = deleted;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUserId() {
+        return userId.getUserId();
+    }
+
+    public String getName() {
+        return name.getName();
+    }
+
+    public String getEmail() {
+        return email.getEmail();
+    }
+
+    public String getNickname() {
+        return nickname.getNickname();
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber.getPhoneNumber();
+    }
+
     public void update(
         String nickname,
         String email
     ) {
-        this.nickname = nickname;
-        this.email = email;
+        this.nickname = new Nickname(nickname);
+        this.email = new Email(email);
     }
 }
