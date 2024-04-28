@@ -1,11 +1,10 @@
 package project.io.app.core.user.application.service;
 
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
 import project.io.app.core.user.application.*;
 import project.io.app.core.user.domain.*;
 import project.io.app.core.user.exception.*;
-
-import java.util.*;
 
 @Service
 public class UserReadService implements UserReadUseCase {
@@ -20,5 +19,10 @@ public class UserReadService implements UserReadUseCase {
     public User findById(Long userId) {
         return userRepository.findById(userId)
             .orElseThrow(() -> new UserNotFoundException(UserCodeAndMessage.USER_NOT_FOUND));
+    }
+
+    @Override
+    public Page<User> findUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }
