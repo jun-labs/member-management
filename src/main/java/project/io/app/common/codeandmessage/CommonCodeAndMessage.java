@@ -5,6 +5,7 @@ import lombok.*;
 @Getter
 public enum CommonCodeAndMessage implements CodeAndMessage {
     OK(200, "OK"),
+    CREATED(201, "Created"),
     BAD_REQUEST(400, "올바른 파라미터를 입력해주세요.");
 
     private final int code;
