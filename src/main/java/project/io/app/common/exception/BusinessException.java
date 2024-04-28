@@ -1,4 +1,4 @@
-package project.io.app.core.user.exception;
+package project.io.app.common.exception;
 
 import lombok.*;
 import project.io.app.common.codeandmessage.*;
