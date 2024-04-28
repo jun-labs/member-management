@@ -31,3 +31,9 @@ logging:
   level:
     org.springframework: INFO
     io.github.resilience4j: INFO
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
