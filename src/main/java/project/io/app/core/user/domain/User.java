@@ -1,8 +1,12 @@
 package project.io.app.core.user.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.*;
 
+@Getter
+@AllArgsConstructor
 @Entity(name = "users")
 public class User {
 
@@ -36,4 +40,15 @@ public class User {
 
     @Column(name = "deleted")
     private Boolean deleted;
+
+    protected User() {
+    }
+
+    public void update(
+        String nickname,
+        String email
+    ) {
+        this.nickname = nickname;
+        this.email = email;
+    }
 }
