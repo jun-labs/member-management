@@ -7,6 +7,8 @@ import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.*;
 import project.io.app.common.codeandmessage.*;
 
+import javax.validation.*;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -14,6 +16,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> resolveBusinessException(BusinessException exception) {
         CodeAndMessage codeAndMessage = exception.getCodeAndMessage();
+        return ResponseEntity.status(codeAndMessage.getCode())
+            .body(new ErrorResponse(codeAndMessage));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> resolveConstraintViolationException(
+        ConstraintViolationException exception
+    ) {
+        log.error("errors:{}", exception.getConstraintViolations());
+        CodeAndMessage codeAndMessage = CommonCodeAndMessage.BAD_REQUEST;
         return ResponseEntity.status(codeAndMessage.getCode())
             .body(new ErrorResponse(codeAndMessage));
     }
