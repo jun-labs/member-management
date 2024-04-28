@@ -12,10 +12,23 @@ import javax.transaction.*;
 @Service
 public class UserWriteService implements UserWriteUseCase {
 
+    private final UserValidator validator;
     private final UserJpaRepository userRepository;
 
-    public UserWriteService(UserJpaRepository userRepository) {
+    public UserWriteService(
+        UserValidator validator,
+        UserJpaRepository userRepository
+    ) {
+        this.validator = validator;
         this.userRepository = userRepository;
+    }
+
+    @Override
+    @Transactional
+    public Long join(UserJoinRequest request) {
+        validator.validate(request);
+        User user = userRepository.save(request.toEntity());
+        return user.getId();
     }
 
     @Override
