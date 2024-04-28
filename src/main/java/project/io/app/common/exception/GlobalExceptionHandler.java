@@ -41,6 +41,16 @@ public class GlobalExceptionHandler {
             .body(new ErrorResponse(codeAndMessage));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> resolveException(
+        Exception exception
+    ) {
+        log.error("error:{}", exception.getMessage());
+        CodeAndMessage codeAndMessage = CommonCodeAndMessage.INTERNAL_SERVER_ERROR;
+        return ResponseEntity.status(codeAndMessage.getCode())
+            .body(new ErrorResponse(codeAndMessage));
+    }
+
     private StringBuilder createMessage(MethodArgumentNotValidException exception) {
         StringBuilder builder = new StringBuilder();
         builder.append("{");

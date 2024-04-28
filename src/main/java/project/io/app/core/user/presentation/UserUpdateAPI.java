@@ -6,6 +6,7 @@ import project.io.app.common.response.*;
 import project.io.app.core.user.application.*;
 import project.io.app.core.user.dto.request.*;
 import project.io.app.core.user.dto.response.*;
+import project.io.app.core.user.presentation.spec.*;
 
 import javax.validation.*;
 import java.util.*;
@@ -20,6 +21,7 @@ public class UserUpdateAPI {
         this.userWriteUseCase = userWriteUseCase;
     }
 
+    @UpdateUserApiSpec
     @PutMapping("/{userId}")
     public ApiResponse<List<UserResponse>> updateInfo(
         @PathVariable Long userId,

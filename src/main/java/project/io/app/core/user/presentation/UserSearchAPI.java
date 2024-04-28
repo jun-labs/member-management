@@ -11,6 +11,7 @@ import project.io.app.common.response.*;
 import project.io.app.core.user.application.*;
 import project.io.app.core.user.domain.*;
 import project.io.app.core.user.dto.response.*;
+import project.io.app.core.user.presentation.spec.*;
 
 import javax.validation.constraints.*;
 import java.util.*;
@@ -26,6 +27,7 @@ public class UserSearchAPI {
         this.userReadUseCase = userReadUseCase;
     }
 
+    @SearchUsersApiSpec
     @GetMapping
     public ApiResponse<PageResponse<UserResponse>> searchUsers(
         @Min(value = 0, message = PAGE_INDEX_VALIDATION_MESSAGE)
